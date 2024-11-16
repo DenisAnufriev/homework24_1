@@ -17,6 +17,10 @@ class Course(models.Model):
         verbose_name="Описание", help_text="Укажите описание курса"
     )
 
+    owner = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, **NULLABLE, related_name="courses"
+    )
+
     def __str__(self):
         return self.title
 
@@ -45,7 +49,11 @@ class Lesson(models.Model):
     )
 
     course = models.ForeignKey(
-        Course, on_delete=models.SET_NULL, **NULLABLE, related_name="lesson"
+        "lms.Course", on_delete=models.SET_NULL, **NULLABLE, related_name="lessons"
+    )
+
+    owner = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, **NULLABLE, related_name="lessons"
     )
 
     def __str__(self):
