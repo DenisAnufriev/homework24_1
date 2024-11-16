@@ -105,6 +105,14 @@
     "course": null
   }
 },
+  {
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "moderator",
+    "permissions": []
+  }
+},
 {
   "model": "users.user",
   "pk": 1,
@@ -132,7 +140,7 @@
     "password": "12345678",
     "last_login": null,
     "is_superuser": false,
-    "first_name": "Второй",
+    "first_name": "Модератор",
     "last_name": "Тестовый пользователь",
     "is_staff": false,
     "is_active": true,
@@ -141,7 +149,9 @@
     "phone": null,
     "city": null,
     "avatar": "",
-    "groups": [],
+    "groups": [
+        1
+      ],
     "user_permissions": []
   }
 },

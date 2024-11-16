@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from lms.models import Lesson, Course
 
 NULLABLE = {"blank": True, "null": True}
 
@@ -37,12 +36,12 @@ class Payment(models.Model):
         CASH = "cash", "Наличные"
         TRANSFER = "transfer", "Перевод на карту"
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="payments")
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="payments")
     lesson = models.ForeignKey(
-        Lesson, on_delete=models.CASCADE, **NULLABLE, related_name="payments"
+        "lms.Lesson", on_delete=models.CASCADE, **NULLABLE, related_name="payments"
     )
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, **NULLABLE, related_name="payments"
+        "lms.Course", on_delete=models.CASCADE, **NULLABLE, related_name="payments"
     )
 
     pay_day = models.DateField(auto_now_add=True, verbose_name="Дата оплаты")
