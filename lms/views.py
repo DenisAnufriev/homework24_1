@@ -2,12 +2,14 @@ from lms.serializers import CourseSerializer, LessonSerializer
 from rest_framework import viewsets
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
+from lms.paginations import CustomPagination
 from lms.models import Course, Lesson
 from users.permissions import IsOwner, IsModerator
 
 
 class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
+    pagination_class = CustomPagination
 
     def get_queryset(self):
         user = self.request.user
@@ -32,6 +34,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
 class LessonListCreateAPIView(ListCreateAPIView):
     serializer_class = LessonSerializer
+    pagination_class = CustomPagination
 
     def get_queryset(self):
         user = self.request.user

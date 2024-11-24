@@ -1,11 +1,15 @@
+from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.filters import OrderingFilter
 from rest_framework.generics import ListAPIView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from users.models import User, Payment
-from users.serializers import UserSerializer, PaymentSerializer, UserPublicSerializer
+from lms.models import Course
+from users.models import User, Payment, Subscription
+from users.serializers import UserSerializer, PaymentSerializer, UserPublicSerializer, SubscriptionSerializer
 
 
 class UserCreateAPIView(generics.CreateAPIView):
@@ -59,6 +63,24 @@ class UserDestroyAPIView(generics.DestroyAPIView):
         if instance != self.request.user:
             raise PermissionDenied("У вас недостаточно прав что бы удалить этого пользователя.")
         instance.delete()
+
+
+class SubscriptionAPIView(APIView):
+    queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        course_id = request.data.get("course_id")
+        course_item = get_object_or_404(Course, id=course_id)
+        subs_item = Subscription.objects.filter(user=user, course=course_item)
+        if subs_item.exists():
+            subs_item.delete()
+            message = "Подписка удалена"
+        else:
+            Subscription.objects.create(user=user, course=course_item)
+            message = "Подписка добавлена"
+        return Response({"message": message}, status=status.HTTP_200_OK)
 
 
 class PaymentListAPIView(ListAPIView):
