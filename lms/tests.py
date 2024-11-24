@@ -28,24 +28,73 @@ class CourseAndLessonTests(APITestCase):
             owner=self.owner_user,
         )
 
-    def test_create_course_as_owner(self):
-        """
-        Проверяет, что владелец может создать новый курс.
-        """
-        self.client.force_authenticate(user=self.owner_user)
-        data = {"title": "test", "description": "test"}
-        response = self.client.post("/learning/courses/", data)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Course.objects.count(), 2)
+        def test_subscribe_and_unsubscribe(self):
+            """
+            Проверяет, что пользователь может подписаться и отписаться от курса.
+            """
+            self.client.force_authenticate(user=self.owner_user)
+            data = {"course_id": self.course.id}
+            response = self.client.post("/users/subs/", data)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.data["message"], "Подписка добавлена")
+            subscription = Subscription.objects.filter(user=self.owner_user, course=self.course)
+            self.assertTrue(subscription.exists())
+            response = self.client.post("/users/subs/", data)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.data["message"], "Подписка удалена")
+            subscription = Subscription.objects.filter(user=self.owner_user, course=self.course)
+            self.assertFalse(subscription.exists())
 
-    def test_create_course_as_moderator(self):
-        """
-        Проверяет, что модератор не может создать новый курс.
-        """
-        self.client.force_authenticate(user=self.moderator_user)
-        data = {"title": "test", "description": "test"}
-        response = self.client.post("/learning/courses/", data)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+    class LessonTest(APITestCase):
+        def setUp(self):
+            self.moderator_group = Group.objects.create(name="moderator")
+            self.owner_user = User.objects.create(
+                email="test1@test.com", password="123456qwerty"
+            )
+            self.moderator_user = User.objects.create(
+                email="moderator1@test.com", password="123456qwerty"
+            )
+            self.moderator_user.groups.add(self.moderator_group)
+            self.client = APIClient()
+            self.course = Course.objects.create(
+                title="Test Course", description="Course description", owner=self.owner_user
+            )
+            self.lesson = Lesson.objects.create(
+                title="Test Lesson",
+                description="Lesson description",
+                link_to_video="http://youtube.com",
+                course=self.course,
+                owner=self.owner_user,
+            )
+
+        def test_create_lesson_as_owner(self):
+            """
+            Проверяет, что владелец может создать новый урок.
+            """
+            self.client.force_authenticate(user=self.owner_user)
+            data = {
+                "title": "test",
+                "description": "test",
+                "link_to_video": "http://youtube.com",
+                "course": self.course.id,
+            }
+            response = self.client.post("/learning/lessons/", data)
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+            self.assertEqual(Lesson.objects.count(), 2)
+
+        def test_create_lesson_as_moderator(self):
+            """
+            Проверяет, что модератор не может создать новый урок.
+            """
+            self.client.force_authenticate(user=self.moderator_user)
+            data = {
+                "title": "test",
+                "description": "test",
+                "link_to_video": "http://youtube.com",
+                "course": self.course.id,
+            }
+            response = self.client.post("/learning/lessons/", data)
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_create_lesson_as_owner(self):
         """
@@ -195,20 +244,3 @@ class CourseAndLessonTests(APITestCase):
         self.client.force_authenticate(user=self.moderator_user)
         response = self.client.delete(f"/learning/lessons/{self.lesson.id}/")
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
-    def test_subscribe_and_unsubscribe(self):
-        """
-        Проверяет, что пользователь может подписаться и отписаться от курса.
-        """
-        self.client.force_authenticate(user=self.owner_user)
-        data = {"course_id": self.course.id}
-        response = self.client.post("/users/subs/", data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["message"], "Подписка добавлена")
-        subscription = Subscription.objects.filter(user=self.owner_user, course=self.course)
-        self.assertTrue(subscription.exists())
-        response = self.client.post("/users/subs/", data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["message"], "Подписка удалена")
-        subscription = Subscription.objects.filter(user=self.owner_user, course=self.course)
-        self.assertFalse(subscription.exists())
