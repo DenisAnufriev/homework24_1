@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "django_filters",
+    "drf_spectacular",
 
     "lms",
     "users",
@@ -84,11 +85,19 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "LSM API",
+    "DESCRIPTION": "This project is an online Learning Management System (LMS)",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
 DATABASES = {
@@ -149,5 +158,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
 
+STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
+# CURRENCY_API_KEY = os.getenv("CURRENCY_API_KEY")
+CUR_API_URL = "https://api.currencyapi.com/"
+CUR_API_KEY = "cur_live_EzIjGXBouXCI7cj5OjYx9V9lj1vGKG0Dre3fkXyP"
 # LOGIN_REDIRECT_URL = "/"
 # LOGOUT_REDIRECT_URL = "/"

@@ -248,3 +248,4 @@ class LessonTest(APITestCase):
         """
         self.client.force_authenticate(user=self.moderator_user)
         response = self.client.delete(f"/learning/lessons/{self.lesson.id}/")
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
