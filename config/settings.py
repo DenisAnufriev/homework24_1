@@ -159,8 +159,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.User"
 
 STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
-# CURRENCY_API_KEY = os.getenv("CURRENCY_API_KEY")
-CUR_API_URL = "https://api.currencyapi.com/"
-CUR_API_KEY = "cur_live_EzIjGXBouXCI7cj5OjYx9V9lj1vGKG0Dre3fkXyP"
+CUR_API_KEY = os.getenv("CURRENCY_API_KEY")
+# CUR_API_URL = "https://api.currencyapi.com/"
+
 # LOGIN_REDIRECT_URL = "/"
 # LOGOUT_REDIRECT_URL = "/"
