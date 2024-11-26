@@ -19,7 +19,7 @@ class User(AbstractUser):
         upload_to="users/avatars/",
         **NULLABLE,
         verbose_name="Аватар",
-        help_text="Загрузите аватар"
+        help_text="Загрузите аватар",
     )
 
     USERNAME_FIELD = "email"
@@ -31,11 +31,10 @@ class User(AbstractUser):
 
 
 class Payment(models.Model):
-    class PayMethod(models.TextChoices):
-        CASH = "cash", "Наличные"
-        TRANSFER = "transfer", "Перевод на карту"
 
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="payments")
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, related_name="payments", **NULLABLE
+    )
     lesson = models.ForeignKey(
         "lms.Lesson", on_delete=models.CASCADE, **NULLABLE, related_name="payments"
     )
@@ -43,12 +42,12 @@ class Payment(models.Model):
         "lms.Course", on_delete=models.CASCADE, **NULLABLE, related_name="payments"
     )
 
-    pay_day = models.DateField(auto_now_add=True, verbose_name="Дата оплаты")
-    pay_method = models.CharField(
-        max_length=10,
-        choices=PayMethod.choices,
-        default=PayMethod.CASH,
-    )
+    amount = models.PositiveIntegerField(verbose_name="Сумма оплаты", default=0)
+    session_id = models.CharField(max_length=255, **NULLABLE, verbose_name="id сессии")
+    link = models.URLField(max_length=400, **NULLABLE, verbose_name="Ссылка на оплату")
+
+    def __str__(self):
+        return self.amount
 
     class Meta:
         verbose_name = "Платеж"
