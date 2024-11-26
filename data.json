@@ -1,222 +1,178 @@
 [
-{
-  "model": "lms.course",
-  "pk": 1,
-  "fields": {
-    "title": "Python разработчик",
-    "preview": "",
-    "description": "Курс включает уроки по разработке на языке Python"
-  }
-},
-{
-  "model": "lms.course",
-  "pk": 2,
-  "fields": {
-    "title": "Java разработчик",
-    "preview": "",
-    "description": "Курс включает уроки по разработке на языке Java"
-  }
-},
-{
-  "model": "lms.lesson",
-  "pk": 1,
-  "fields": {
-    "title": "Django",
-    "description": "Урок по фреймворку Django",
-    "preview": "",
-    "link_to_video": "https://docs.djangoproject.com/en/5.1/",
-    "course": 1
-  }
-},
-{
-  "model": "lms.lesson",
-  "pk": 2,
-  "fields": {
-    "title": "FastAPI",
-    "description": "Урок по фреймворку FastAPI",
-    "preview": "",
-    "link_to_video": "https://fastapi.tiangolo.com/tutorial/",
-    "course": 1
-  }
-},
-{
-  "model": "lms.lesson",
-  "pk": 3,
-  "fields": {
-    "title": "Flask",
-    "description": "Урок по фреймворку Flask",
-    "preview": "",
-    "link_to_video": "https://itproger.com/course/flask",
-    "course": 1
-  }
-},
-{
-  "model": "lms.lesson",
-  "pk": 4,
-  "fields": {
-    "title": "Spring",
-    "description": "Урок по фреймворку Spring",
-    "preview": "",
-    "link_to_video": "https://itproger.com/course/java-spring",
-    "course": 2
-  }
-},
-{
-  "model": "lms.lesson",
-  "pk": 5,
-  "fields": {
-    "title": "Spring Boot",
-    "description": "Урок по фреймворку Spring Boot",
-    "preview": "",
-    "link_to_video": "https://habr.com/ru/articles/435144/",
-    "course": 2
-  }
-},
-{
-  "model": "lms.lesson",
-  "pk": 6,
-  "fields": {
-    "title": "Dropwizard",
-    "description": "Урок по фреймворку Dropwizard",
-    "preview": "",
-    "link_to_video": "https://www.dropwizard.io/en/stable/",
-    "course": 2
-  }
-},
-{
-  "model": "lms.lesson",
-  "pk": 7,
-  "fields": {
-    "title": "Revel",
-    "description": "Урок по фреймворку Revel на языке Golang",
-    "preview": "",
-    "link_to_video": "https://habr.com/ru/companies/slurm/articles/733100/",
-    "course": null
-  }
-},
-{
-  "model": "lms.lesson",
-  "pk": 8,
-  "fields": {
-    "title": "ReactJS",
-    "description": "Урок по фреймворку ReactJS на языке JavaScript",
-    "preview": "",
-    "link_to_video": "https://react.dev/",
-    "course": null
-  }
-},
   {
-  "model": "auth.group",
-  "pk": 1,
-  "fields": {
-    "name": "moderator",
-    "permissions": []
-  }
-},
-{
-  "model": "users.user",
-  "pk": 1,
-  "fields": {
-    "password": "12345678",
-    "last_login": null,
-    "is_superuser": false,
-    "first_name": "Первый",
-    "last_name": "Тестовый пользователь",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2024-11-06T14:14:24.338Z",
-    "email": "test1@test.com",
-    "phone": null,
-    "city": null,
-    "avatar": "",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "users.user",
-  "pk": 2,
-  "fields": {
-    "password": "12345678",
-    "last_login": null,
-    "is_superuser": false,
-    "first_name": "Модератор",
-    "last_name": "Тестовый пользователь",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2024-12-08T14:15:13.657Z",
-    "email": "test2@test.com",
-    "phone": null,
-    "city": null,
-    "avatar": "",
-    "groups": [
+    "model": "lms.course",
+    "pk": 1,
+    "fields": {
+      "title": "Python разработчик",
+      "preview": "",
+      "description": "Курс включает уроки по разработке на языке Python"
+    }
+  },
+  {
+    "model": "lms.course",
+    "pk": 2,
+    "fields": {
+      "title": "Java разработчик",
+      "preview": "",
+      "description": "Курс включает уроки по разработке на языке Java"
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 1,
+    "fields": {
+      "title": "Django",
+      "description": "Урок по фреймворку Django",
+      "preview": "",
+      "link_to_video": "https://docs.djangoproject.com/en/5.1/",
+      "course": 1
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 2,
+    "fields": {
+      "title": "FastAPI",
+      "description": "Урок по фреймворку FastAPI",
+      "preview": "",
+      "link_to_video": "https://fastapi.tiangolo.com/tutorial/",
+      "course": 1
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 3,
+    "fields": {
+      "title": "Flask",
+      "description": "Урок по фреймворку Flask",
+      "preview": "",
+      "link_to_video": "https://itproger.com/course/flask",
+      "course": 1
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 4,
+    "fields": {
+      "title": "Spring",
+      "description": "Урок по фреймворку Spring",
+      "preview": "",
+      "link_to_video": "https://itproger.com/course/java-spring",
+      "course": 2
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 5,
+    "fields": {
+      "title": "Spring Boot",
+      "description": "Урок по фреймворку Spring Boot",
+      "preview": "",
+      "link_to_video": "https://habr.com/ru/articles/435144/",
+      "course": 2
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 6,
+    "fields": {
+      "title": "Dropwizard",
+      "description": "Урок по фреймворку Dropwizard",
+      "preview": "",
+      "link_to_video": "https://www.dropwizard.io/en/stable/",
+      "course": 2
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 7,
+    "fields": {
+      "title": "Revel",
+      "description": "Урок по фреймворку Revel на языке Golang",
+      "preview": "",
+      "link_to_video": "https://habr.com/ru/companies/slurm/articles/733100/",
+      "course": null
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 8,
+    "fields": {
+      "title": "ReactJS",
+      "description": "Урок по фреймворку ReactJS на языке JavaScript",
+      "preview": "",
+      "link_to_video": "https://react.dev/",
+      "course": null
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+      "name": "moderator",
+      "permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "12345678",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "Первый",
+      "last_name": "Тестовый пользователь",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-11-06T14:14:24.338Z",
+      "email": "test1@test.com",
+      "phone": null,
+      "city": null,
+      "avatar": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "12345678",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "Модератор",
+      "last_name": "Тестовый пользователь",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-12-08T14:15:13.657Z",
+      "email": "test2@test.com",
+      "phone": null,
+      "city": null,
+      "avatar": "",
+      "groups": [
         1
       ],
-    "user_permissions": []
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "Третий",
+      "last_name": "Тестовый пользователь",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-12-08T18:02:40.615Z",
+      "email": "test3@test.com",
+      "phone": null,
+      "city": null,
+      "avatar": "",
+      "groups": [],
+      "user_permissions": []
+    }
   }
-},
-{
-  "model": "users.user",
-  "pk": 3,
-  "fields": {
-    "password": "",
-    "last_login": null,
-    "is_superuser": false,
-    "first_name": "Третий",
-    "last_name": "Тестовый пользователь",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2024-12-08T18:02:40.615Z",
-    "email": "test3@test.com",
-    "phone": null,
-    "city": null,
-    "avatar": "",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "users.payment",
-  "pk": 1,
-  "fields": {
-    "user": 1,
-    "lesson": null,
-    "course": 1,
-    "pay_day": "2024-11-03",
-    "pay_method": "cash"
-  }
-},
-{
-  "model": "users.payment",
-  "pk": 2,
-  "fields": {
-    "user": 2,
-    "lesson": null,
-    "course": 2,
-    "pay_day": "2024-11-04",
-    "pay_method": "transfer"
-  }
-},
-{
-  "model": "users.payment",
-  "pk": 3,
-  "fields": {
-    "user": 3,
-    "lesson": 7,
-    "course": null,
-    "pay_day": "2024-11-05",
-    "pay_method": "transfer"
-  }
-},
-{
-  "model": "users.payment",
-  "pk": 4,
-  "fields": {
-    "user": 1,
-    "lesson": 8,
-    "course": null,
-    "pay_day": "2024-11-06",
-    "pay_method": "cash"
-  }
-}
 ]
