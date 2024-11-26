@@ -9,15 +9,32 @@ from rest_framework.views import APIView
 
 from lms.models import Course
 from users.models import User, Payment, Subscription
-from users.serializers import UserSerializer, PaymentSerializer, UserPublicSerializer, SubscriptionSerializer
-from users.services import create_stripe_session, create_stripe_price, convert_rub_to_usd
+from users.serializers import (
+    UserSerializer,
+    PaymentSerializer,
+    UserPublicSerializer,
+    SubscriptionSerializer,
+)
+from users.services import (
+    create_stripe_session,
+    create_stripe_price,
+    convert_rub_to_usd,
+)
 
 
 class UserCreateAPIView(generics.CreateAPIView):
+    """
+    Представление для создания нового пользователя.
+    """
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
     def perform_create(self, serializer):
+        """
+        Сохраняет нового пользователя со статусом "активен".
+        Если указан пароль, он хэшируется и сохраняется.
+        """
         user = serializer.save(is_active=True)
         password = self.request.data.get("password")
         if password:
@@ -26,15 +43,27 @@ class UserCreateAPIView(generics.CreateAPIView):
 
 
 class UserListAPIView(generics.ListAPIView):
+    """
+    Представление для получения списка всех пользователей.
+    """
+
     queryset = User.objects.all()
     serializer_class = UserPublicSerializer
 
 
 class UserUpdateAPIView(generics.UpdateAPIView):
+    """
+    Представление для обновления профиля текущего пользователя.
+    """
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
     def perform_update(self, serializer):
+        """
+        Обновляет профиль пользователя. Если указан новый пароль, он хэшируется.
+        Выдает PermissionDenied, если пользователь пытается изменить чужой профиль.
+        """
         if serializer.instance != self.request.user:
             raise PermissionDenied("У вас нет прав что бы изменять этот профиль.")
 
@@ -47,30 +76,56 @@ class UserUpdateAPIView(generics.UpdateAPIView):
 
 
 class UserRetrieveAPIView(generics.RetrieveAPIView):
+    """
+    Представление для получения информации о конкретном пользователе.
+    """
+
     queryset = User.objects.all()
     serializer_class = UserPublicSerializer
 
     def get_serializer_class(self):
+        if getattr(self, "swagger_fake_view", False):
+            return UserSerializer
+
+        # Обычная логика выполнения
         if self.get_object() == self.request.user:
             return UserSerializer
         return UserPublicSerializer
 
 
 class UserDestroyAPIView(generics.DestroyAPIView):
+    """
+    Представление для удаления профиля текущего пользователя.
+    """
+
     queryset = User.objects.all()
     serializer_class = UserPublicSerializer
 
     def perform_destroy(self, instance):
+        """
+        Удаляет профиль пользователя. Выдает PermissionDenied, если пользователь пытается
+        удалить чужой профиль.
+        """
         if instance != self.request.user:
-            raise PermissionDenied("У вас недостаточно прав что бы удалить этого пользователя.")
+            raise PermissionDenied(
+                "У вас недостаточно прав что бы удалить этого пользователя."
+            )
         instance.delete()
 
 
 class SubscriptionAPIView(APIView):
+    """
+    Представление для управления подписками пользователя на курсы.
+    """
+
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
 
     def post(self, request, *args, **kwargs):
+        """
+        Переключает статус подписки пользователя на указанный курс.
+        Возвращает сообщение о добавлении или удалении подписки.
+        """
         user = request.user
         course_id = request.data.get("course_id")
         course_item = get_object_or_404(Course, id=course_id)
@@ -85,10 +140,18 @@ class SubscriptionAPIView(APIView):
 
 
 class PaymentCreateAPIView(CreateAPIView):
+    """
+    Представление для создания платежа и формирования Stripe-сессии для обработки.
+    """
+
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
 
     def perform_create(self, serializer):
+        """
+        Сохраняет платеж, конвертирует сумму в USD, создает объект цены в Stripe
+        и генерирует Stripe-сессию. Сохраняет идентификатор сессии и ссылку на оплату.
+        """
         payment = serializer.save(user=self.request.user)
 
         amount_in_usd = convert_rub_to_usd(payment.amount)

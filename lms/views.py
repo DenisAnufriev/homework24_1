@@ -65,6 +65,7 @@ class LessonListCreateAPIView(ListCreateAPIView):
     - Модераторы видят все уроки.
     - Разграничение прав доступа: владельцы или модераторы в зависимости от действия.
     """
+
     serializer_class = LessonSerializer
     pagination_class = CustomPagination
 
@@ -109,6 +110,7 @@ class LessonRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     - Модераторы видят все уроки.
     - Разграничение прав доступа: владельцы или модераторы в зависимости от действия.
     """
+
     serializer_class = LessonSerializer
 
     def get_queryset(self):
