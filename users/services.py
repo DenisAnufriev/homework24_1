@@ -17,14 +17,16 @@ def convert_rub_to_usd(amount):
     return int(usd_price)
 
 
-def create_stripe_price(amount, name):
-    product = stripe.Product.create(name=name)
-    price = stripe.Price.create(
+def create_stripe_product(product):
+    return stripe.Product.create(name=product)
+
+
+def create_stripe_price(amount, product):
+    return stripe.Price.create(
         currency="usd",
         unit_amount=amount * 100,
         product=product.id,
     )
-    return price
 
 
 def create_stripe_session(price):

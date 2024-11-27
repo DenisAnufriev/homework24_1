@@ -18,7 +18,7 @@ from users.serializers import (
 from users.services import (
     create_stripe_session,
     create_stripe_price,
-    convert_rub_to_usd,
+    convert_rub_to_usd, create_stripe_product,
 )
 
 
@@ -158,8 +158,8 @@ class PaymentCreateAPIView(CreateAPIView):
 
         course = Course.objects.get(id=payment.course.id)
         name = course.title
-
-        price = create_stripe_price(amount_in_usd, name)
+        product = create_stripe_product(name)
+        price = create_stripe_price(amount_in_usd, product)
 
         session_id, payment_link = create_stripe_session(price)
 
