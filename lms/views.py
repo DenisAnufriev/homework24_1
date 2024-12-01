@@ -1,9 +1,11 @@
 from rest_framework import viewsets
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
+from lms.tasks import send_email_course_update
 from lms.models import Course, Lesson
 from lms.paginations import CustomPagination
 from lms.serializers import CourseSerializer, LessonSerializer
+from users.models import Subscription
 from users.permissions import IsOwner, IsModerator
 
 
@@ -32,6 +34,21 @@ class CourseViewSet(viewsets.ModelViewSet):
         if user.groups.filter(name="moderator").exists():
             return Course.objects.all()
         return Course.objects.filter(owner=user)
+
+    def perform_update(self, serializer):
+        """
+        Обновляет курс и отправляет email-уведомления подписчикам.
+
+        Args:
+            serializer: Сериализатор с данными для обновления.
+        """
+        course = serializer.save()
+        subscribers = Subscription.objects.filter(course=course).values_list(
+            "user__email", flat=True
+        )
+        user_emails = list(subscribers)
+
+        send_email_course_update.delay(course.id, course.title, user_emails)
 
     def perform_create(self, serializer):
         """
