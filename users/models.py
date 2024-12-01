@@ -63,7 +63,7 @@ class Subscription(models.Model):
     )
 
     def __str__(self):
-        return f"{self.user} signed {self.user}"
+        return f"{self.user} signed {self.course}"
 
     class Meta:
         verbose_name = "Подписка"

@@ -129,7 +129,7 @@ class SubscriptionAPIView(APIView):
         Возвращает сообщение о добавлении или удалении подписки.
         """
         user = request.user
-        course_id = request.data.get("course_id")
+        course_id = request.data.get("course")
         course_item = get_object_or_404(Course, id=course_id)
         subs_item = Subscription.objects.filter(user=user, course=course_item)
         if subs_item.exists():
