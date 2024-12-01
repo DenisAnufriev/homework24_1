@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status
+from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.filters import OrderingFilter
 from rest_framework.generics import CreateAPIView
@@ -121,6 +122,7 @@ class SubscriptionAPIView(APIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
 
+    @action(detail=True, methods=("post",))
     def post(self, request, *args, **kwargs):
         """
         Переключает статус подписки пользователя на указанный курс.
