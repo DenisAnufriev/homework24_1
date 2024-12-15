@@ -5,7 +5,8 @@
     "fields": {
       "title": "Python разработчик",
       "preview": "",
-      "description": "Курс включает уроки по разработке на языке Python"
+      "description": "Курс включает уроки по разработке на языке Python",
+      "owner": 3
     }
   },
   {
@@ -14,7 +15,8 @@
     "fields": {
       "title": "Java разработчик",
       "preview": "",
-      "description": "Курс включает уроки по разработке на языке Java"
+      "description": "Курс включает уроки по разработке на языке Java",
+      "owner": null
     }
   },
   {
@@ -25,7 +27,8 @@
       "description": "Урок по фреймворку Django",
       "preview": "",
       "link_to_video": "https://docs.djangoproject.com/en/5.1/",
-      "course": 1
+      "course": 1,
+      "owner": 3
     }
   },
   {
@@ -36,7 +39,8 @@
       "description": "Урок по фреймворку FastAPI",
       "preview": "",
       "link_to_video": "https://fastapi.tiangolo.com/tutorial/",
-      "course": 1
+      "course": 1,
+      "owner": 3
     }
   },
   {
@@ -47,7 +51,8 @@
       "description": "Урок по фреймворку Flask",
       "preview": "",
       "link_to_video": "https://itproger.com/course/flask",
-      "course": 1
+      "course": 1,
+      "owner": 3
     }
   },
   {
@@ -58,7 +63,8 @@
       "description": "Урок по фреймворку Spring",
       "preview": "",
       "link_to_video": "https://itproger.com/course/java-spring",
-      "course": 2
+      "course": 2,
+      "owner": 3
     }
   },
   {
@@ -69,7 +75,8 @@
       "description": "Урок по фреймворку Spring Boot",
       "preview": "",
       "link_to_video": "https://habr.com/ru/articles/435144/",
-      "course": 2
+      "course": 2,
+      "owner": 3
     }
   },
   {
@@ -80,7 +87,8 @@
       "description": "Урок по фреймворку Dropwizard",
       "preview": "",
       "link_to_video": "https://www.dropwizard.io/en/stable/",
-      "course": 2
+      "course": 2,
+      "owner": 3
     }
   },
   {
@@ -91,7 +99,8 @@
       "description": "Урок по фреймворку Revel на языке Golang",
       "preview": "",
       "link_to_video": "https://habr.com/ru/companies/slurm/articles/733100/",
-      "course": null
+      "course": null,
+      "owner": 3
     }
   },
   {
@@ -102,77 +111,32 @@
       "description": "Урок по фреймворку ReactJS на языке JavaScript",
       "preview": "",
       "link_to_video": "https://react.dev/",
-      "course": null
+      "course": null,
+      "owner": 3
     }
   },
   {
-    "model": "auth.group",
-    "pk": 1,
+    "model": "lms.lesson",
+    "pk": 9,
     "fields": {
-      "name": "moderator",
-      "permissions": []
+      "title": "asd",
+      "description": "dsa",
+      "preview": "",
+      "link_to_video": "https://youtube.com",
+      "course": 1,
+      "owner": 4
     }
   },
   {
-    "model": "users.user",
-    "pk": 1,
+    "model": "lms.lesson",
+    "pk": 10,
     "fields": {
-      "password": "12345678",
-      "last_login": "2024-11-30T19:35:56.382Z",
-      "is_superuser": false,
-      "first_name": "Первый",
-      "last_name": "Тестовый пользователь",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2024-11-06T14:14:24.338Z",
-      "email": "test1@test.com",
-      "phone": null,
-      "city": null,
-      "avatar": "",
-      "groups": [],
-      "user_permissions": []
-    }
-  },
-  {
-    "model": "users.user",
-    "pk": 2,
-    "fields": {
-      "password": "12345678",
-      "last_login": "2024-11-30T19:35:56.382Z",
-      "is_superuser": false,
-      "first_name": "Модератор",
-      "last_name": "Тестовый пользователь",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2024-12-08T14:15:13.657Z",
-      "email": "test2@test.com",
-      "phone": null,
-      "city": null,
-      "avatar": "",
-      "groups": [
-        1
-      ],
-      "user_permissions": []
-    }
-  },
-  {
-    "model": "users.user",
-    "pk": 3,
-    "fields": {
-      "password": "",
-      "last_login": "2024-11-30T19:35:56.382Z",
-      "is_superuser": false,
-      "first_name": "Третий",
-      "last_name": "Тестовый пользователь",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2024-12-08T18:02:40.615Z",
-      "email": "test3@test.com",
-      "phone": null,
-      "city": null,
-      "avatar": "",
-      "groups": [],
-      "user_permissions": []
+      "title": "pff",
+      "description": "fpp",
+      "preview": "",
+      "link_to_video": "https://youtube.com",
+      "course": 1,
+      "owner": 3
     }
   }
 ]
