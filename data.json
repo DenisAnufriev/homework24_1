@@ -145,7 +145,7 @@
     "is_staff": false,
     "is_active": true,
     "date_joined": "2024-12-08T14:15:13.657Z",
-    "email": "test2@test.com",
+    "email": "moderatorest.com",
     "phone": null,
     "city": null,
     "avatar": "",
@@ -159,7 +159,7 @@
   "model": "users.user",
   "pk": 3,
   "fields": {
-    "password": "",
+    "password": "12345678",
     "last_login": null,
     "is_superuser": false,
     "first_name": "Третий",
