@@ -6,6 +6,8 @@ services:
     restart: on-failure
     expose:
       - "6379"
+    healthcheck:
+      test: redis-cli ping
 
   db:
     image: postgres:16.3-alpine
@@ -18,7 +20,7 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "-c", "pg_isready -U $POSTGRES_USER"]
+      test: ["CMD-SHELL", "-c", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
       interval: 10s
       retries: 5
       timeout: 20s
